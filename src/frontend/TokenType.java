@@ -8,7 +8,31 @@ import java.util.EnumSet;
  */
 public enum TokenType {
 	
-	IDENTIFIER("identifer");
+	JSON("json"),
+	OBJECT("object"),
+	ARRAY("array"),
+	MEMBERS("members"),
+	PAIR("pair"),
+	STRING("string"),
+	VALUE("value"),
+	ELEMENTS("elements"),
+	NUMBER("number"),
+	INTEGER("integer"),
+	FLOAT("float"),
+	SCIENTIFIC("scientific"),
+	
+	LEFT_BRACE("{"),
+	RIGHT_BRACE("}"),
+	LEFT_BRACKET("["),
+	RIGHT_BRACKET("]"),
+	COMMA(","),
+	COLON(":"),
+	
+	TRUE("true"),
+	FALSE("false"),
+	NULL("null"),
+	VALID("valid"),
+	ERROR("error");
 	
 	public String literal;
 	private TokenType(String literal){
