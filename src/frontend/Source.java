@@ -9,7 +9,7 @@ import java.io.IOException;
  * @author huang
  * 用于确定 token 的位置
  */
-public class Source {
+public class Source implements AutoCloseable {
 	
 	public static final char EOF = (char) 0;  // end of file
 	public static final char EOL = '\n';  // end of line

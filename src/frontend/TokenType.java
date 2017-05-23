@@ -31,7 +31,6 @@ public enum TokenType {
 	TRUE("true"),
 	FALSE("false"),
 	NULL("null"),
-	VALID("valid"),
 	ERROR("error");
 	
 	public String literal;
