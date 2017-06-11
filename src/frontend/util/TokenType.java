@@ -1,6 +1,4 @@
-package frontend;
-
-import java.util.EnumSet;
+package frontend.util;
 
 /**
  * @author huang
@@ -8,7 +6,6 @@ import java.util.EnumSet;
  */
 public enum TokenType {
 	
-	JSON("json"),
 	OBJECT("object"),
 	ARRAY("array"),
 	MEMBERS("members"),
@@ -31,11 +28,11 @@ public enum TokenType {
 	TRUE("true"),
 	FALSE("false"),
 	NULL("null"),
-	ERROR("error");
+	
+	EOF("end_of_file");
 	
 	public String literal;
 	private TokenType(String literal){
 		this.literal = literal;
 	}
-//    public static EnumSet<TokenType> OP = EnumSet.range(from, to);
 }

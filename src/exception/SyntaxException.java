@@ -19,4 +19,9 @@ public class SyntaxException extends Exception{
 	public SyntaxException(String errmsg, int line, int position) {
 		System.err.println("Error(line " + line + ",position " + position + "): " + errmsg);
 	}
+	
+	// for test
+//	public SyntaxException(String errmsg, int line, int position, String value) {
+//		System.err.println("Error(line " + line + ",position " + position + "): " + errmsg + value);
+//	}
 }
