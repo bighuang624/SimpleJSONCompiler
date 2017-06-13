@@ -5,8 +5,8 @@
 
 options:
 
--find <path>, to find the specified value and show its type
+* -find <path>, to find the specified value and show its type
+
 the format of <path> for example: \"/RECORDS[35]/countryname\"
 		
-
-t-pretty, to write a json file with better output format
+* -pretty, to write a json file with better output format
