@@ -1,43 +1,30 @@
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import frontend.CharReader;
+import frontend.JsonWriter;
 import frontend.Lexer;
 import frontend.Parser;
+import frontend.Searcher;
+import frontend.StackElement;
+import frontend.util.Token;
 
 /**
- * @author huang
+ * @author huang 
  * 程序入口
  */
 public class JSONCompiler {
-	public static void main(String[] args) throws Exception {
-		if (args.length == 3 && args[0].equals("-find")) {
-			System.out.println("-find 正在开发中");
-		} else if (args.length == 2 && args[0].equals("-pretty")) {
-			// System.out.println("-pretty 正在开发中");
+	public static void main(String[] args) {
+		try {
+			if (args.length == 3 && args[0].equals("-find")) {
+				search(args[1], args[2]);
+			} else if (args.length == 2 && args[0].equals("-pretty")) {
+				pretty(args[1]);
+			} else if (args.length == 1) {
+				parse(args[0]);
+			} else {
+				System.out.println("Arguments are invalid!\n");
+				helpDocument();
+			}
+		} catch (Exception e) {
 
-			String filePath = args[1];
-			CharReader reader = new CharReader(filePath);
-			Lexer lexer = new Lexer(reader);
-			Parser parser = new Parser(lexer);
-			writeJson(parser.parse(), filePath);
-		} else if (args.length == 1) {
-			CharReader reader = new CharReader(args[0]);
-			Lexer lexer = new Lexer(reader);
-			Parser parser = new Parser(lexer);
-			parser.parse();
-			System.out.println("valid");
-		} else if (args.length == 0) {
-			String filePath = "/Users/huang/Desktop/country.json";
-			CharReader reader = new CharReader(filePath);
-			Lexer lexer = new Lexer(reader);
-			Parser parser = new Parser(lexer);
-			System.out.println(parser.parse());
-//			writeJson(parser.parse(), filePath);
-		} else {
-			System.out.println("Arguments are invalid!\n");
-			helpDocument();
 		}
 	}
 
@@ -47,34 +34,41 @@ public class JSONCompiler {
 		System.out.println("options:");
 		System.out.println("\t-find <path>, to find the specified value and show its type,");
 		System.out.println("\tthe format of <path> for example: \"/RECORDS[35]/countryname\"");
-		System.out.println("\n\t-pretty, to give the Json file with better output format");
+		System.out.println("\n\t-pretty, to write a json file with better output format");
 	}
 
-	private static void writeJson(Object prettyJson, String path) {
+	private static void parse(String file) throws Exception {
+		CharReader reader = new CharReader(file);
+		Lexer lexer = new Lexer(reader);
+		Parser parser = new Parser(lexer);
+		parser.parse();
+		System.out.println("valid");
+	}
 
-		String[] pathArr = path.split("\\.");
-		StringBuilder newPathBuilder = new StringBuilder();
-		for (int i = 0; i < pathArr.length; i++) {
-			if (i != pathArr.length - 1) {
-				if (i == 0) {
-					newPathBuilder.append(pathArr[i]);
-				} else {
-					newPathBuilder.append("." + pathArr[i]);
-				}
+	private static void pretty(String filePath) throws Exception {
+		CharReader reader = new CharReader(filePath);
+		Lexer lexer = new Lexer(reader);
+		Parser parser = new Parser(lexer);
+		JsonWriter.writeJson(parser.parse().getValue(), filePath);
+	}
+
+	private static void search(String searchPath, String filePath) throws Exception {
+		CharReader reader = new CharReader(filePath);
+		Lexer lexer = new Lexer(reader);
+		Parser parser = new Parser(lexer);
+		Searcher searcher = new Searcher(parser);
+		StackElement result = searcher.search(searchPath);
+		if (null == result.getValue()) {
+			System.out.println("null");
+		} else {
+			System.out.println("The search result is: " + result);
+			if (result.getType().equals(StackElement.ARRAY)) {
+				System.out.println("The class of the result is: array");
+			} else if (result.getType().equals(StackElement.OBJECT)) {
+				System.out.println("The class of the result is: object");
 			} else {
-				newPathBuilder.append(".pretty.json");
+				System.out.println("The class of the result is: " + ((Token) result.getValue()).getType());
 			}
-		}
-		String newPath = newPathBuilder.toString();
-		BufferedWriter writer;
-		try {
-			writer = new BufferedWriter(new FileWriter(newPath));
-			writer.write(prettyJson.toString());
-			if (writer != null) {
-				writer.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
 	}
 

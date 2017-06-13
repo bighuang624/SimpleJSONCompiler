@@ -12,8 +12,8 @@ import java.util.Map.Entry;
 public class LinkedMap extends LinkedHashMap<String, Object> {
 
 	private static final long serialVersionUID = 1L;
-	
-	private static final int tabsNum = TabsCounter.getTabsNum();
+
+	private final int tabsNum = Counter.getTabsNum();
 
 	@Override
 	public String toString() {
@@ -27,14 +27,18 @@ public class LinkedMap extends LinkedHashMap<String, Object> {
 			addTabs(value);
 		}
 		value.delete(value.length() - 2 - tabsNum, value.length() - 1 - tabsNum);
-		addTabs(value);
+		reduceOneTab(value);
 		value.append("}");
 		return value.toString();
 	}
-	
-	private void addTabs(StringBuilder value){
-		for(int j = 0; j < tabsNum; j++){
+
+	private void addTabs(StringBuilder value) {
+		for (int j = 0; j < tabsNum; j++) {
 			value.append("\t");
 		}
+	}
+
+	private void reduceOneTab(StringBuilder value) {
+		value.delete(value.length() - 1, value.length());
 	}
 }

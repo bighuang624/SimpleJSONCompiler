@@ -14,7 +14,7 @@ public class CharReader implements AutoCloseable {
 	public static final char EOF = (char) 0;
 	public static final char EOL = '\n';
 	private BufferedReader reader;
-	private String line; // the content of the line
+	private String line;
 	private int currentLine = 0;
 	private int currentPosition = 1;
 
@@ -35,14 +35,6 @@ public class CharReader implements AutoCloseable {
 		return currentPosition;
 	}
 
-	public void setCurrentLine(int currentLine) {
-		this.currentLine = currentLine;
-	}
-
-	public void setCurrentPosition(int currentPosition) {
-		this.currentPosition = currentPosition;
-	}
-
 	public char nextChar() {
 		currentPosition++;
 		if (line == null) {
@@ -54,13 +46,6 @@ public class CharReader implements AutoCloseable {
 		return line.charAt(currentPosition - 1);
 	}
 
-	/**
-	 * get char at specified offset (default 1) if offset is too big or too
-	 * small, returns end of line
-	 * 
-	 * @param offset
-	 * @return
-	 */
 	private char peekChar(int offset) {
 		if ("".equals(line) || line == null) {
 			return nextChar();
@@ -76,11 +61,6 @@ public class CharReader implements AutoCloseable {
 		return peekChar(1);
 	}
 
-	/**
-	 * 读取下一行
-	 * 
-	 * @return
-	 */
 	private String readNextLine() {
 		String str = null;
 		try {

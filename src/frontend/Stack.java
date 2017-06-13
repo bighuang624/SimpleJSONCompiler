@@ -15,7 +15,7 @@ public class Stack {
 	int position = 0;
 
 	public Stack() {
-		this.SIZE = 100;
+		this.SIZE = 128;
 		this.array = new StackElement[this.SIZE];
 	}
 
@@ -47,17 +47,12 @@ public class Stack {
 			throw new EmptyStackException(ExceptionMessage.EMPTY_STACK);
 		}
 		position--;
-		StackElement obj = array[position];
-		if (obj.type == type) {
-			return obj;
+		StackElement element = array[position];
+		if (element.type == type) {
+			return element;
 		}
 		throw new SyntaxException(ExceptionMessage.UNMATCHED_OBORARR);
 	}
-
-	// Class<?> getTopValueClass() {
-	// StackElement obj = array[position - 1];
-	// return obj.value.getClass();
-	// }
 
 	String getTopValueType() {
 		return array[position - 1].type;
@@ -67,9 +62,9 @@ public class Stack {
 		if (isEmpty()) {
 			throw new EmptyStackException(ExceptionMessage.EMPTY_STACK);
 		}
-		StackElement obj = array[position - 1];
-		if (obj.type == type) {
-			return obj;
+		StackElement element = array[position - 1];
+		if (element.type == type) {
+			return element;
 		}
 		throw new SyntaxException(ExceptionMessage.UNMATCHED_OBORARR);
 	}

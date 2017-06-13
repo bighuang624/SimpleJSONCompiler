@@ -6,7 +6,8 @@ import frontend.util.Token;
 import frontend.util.TokenType;
 
 /**
- * @author huang 读取 token
+ * @author huang 
+ * 读取 token
  */
 public class Lexer {
 	private CharReader charReader;
@@ -38,7 +39,7 @@ public class Lexer {
 			if (ch == '-') {
 				number.append(ch);
 				ch = charReader.peekChar();
-				if(Character.isDigit(ch)){
+				if (Character.isDigit(ch)) {
 					++offset;
 					charReader.nextChar();
 				} else {
@@ -59,8 +60,6 @@ public class Lexer {
 			int status = READ_NUMBER_INT_PART;
 			for (;;) {
 				if (hasNext()) {
-//					ch = charReader.nextChar();
-//					++offset;
 					ch = charReader.peekChar();
 				} else {
 					status = READ_NUMBER_END;
@@ -89,7 +88,7 @@ public class Lexer {
 							++offset;
 						}
 					} else {
-						if(Character.isAlphabetic(ch)){
+						if (Character.isAlphabetic(ch)) {
 							throw new LexException(ExceptionMessage.ILLEGAL_NUMBER, charReader.getCurrentLine(),
 									charReader.getCurrentPosition() - offset);
 						}
@@ -121,7 +120,7 @@ public class Lexer {
 							throw new LexException(ExceptionMessage.ILLEGAL_NUMBER, charReader.getCurrentLine(),
 									charReader.getCurrentPosition() - offset);
 						}
-						if(Character.isAlphabetic(ch) || ch == '.'){
+						if (Character.isAlphabetic(ch) || ch == '.') {
 							throw new LexException(ExceptionMessage.ILLEGAL_NUMBER, charReader.getCurrentLine(),
 									charReader.getCurrentPosition() - offset);
 						}
@@ -142,7 +141,7 @@ public class Lexer {
 							throw new LexException(ExceptionMessage.ILLEGAL_NUMBER, charReader.getCurrentLine(),
 									charReader.getCurrentPosition() - offset);
 						}
-						if(Character.isAlphabetic(ch) || ch == '.' || ch == 'e' || ch == 'E'){
+						if (Character.isAlphabetic(ch) || ch == '.' || ch == 'e' || ch == 'E') {
 							throw new LexException(ExceptionMessage.ILLEGAL_NUMBER, charReader.getCurrentLine(),
 									charReader.getCurrentPosition() - offset);
 						}
@@ -193,7 +192,7 @@ public class Lexer {
 						string.append('\t');
 						break;
 					case 'u':
-						// read an unicode uXXXX:
+						// read an unicode:
 						int u = 0;
 						for (int i = 0; i < 4; i++) {
 							char uch = charReader.nextChar();
@@ -222,7 +221,7 @@ public class Lexer {
 						throw new LexException(ExceptionMessage.UNEXPECTED_CHAR + ch, charReader.getCurrentLine(),
 								charReader.getCurrentPosition());
 					}
-				} else if (ch == '\r' || ch == '\n') { // 可能还有别的空白符？
+				} else if (ch == '\r' || ch == '\n') {
 					throw new LexException(ExceptionMessage.EXPECTED_BACKQUOTE, charReader.getCurrentLine(),
 							charReader.getCurrentPosition());
 				} else if (ch == '\"') {

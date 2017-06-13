@@ -14,7 +14,7 @@ public class ExceptionMessage {
     public static final String UNEXPECTED_COMMA = "Token <,> in an unexpcected place";
     public static final String UNEXPECTED_COLON = "Token <:> in an unexpcected place";
     public static final String UNEXPECTED_STRING = "String token in an unexpcected place";
-    public static final String UNEXPECTED_EOF = "Unexpected EOF";  //
+    public static final String UNEXPECTED_EOF = "Unexpected EOF";
     public static final String UNMATCHED_OBORARR = "Unmatched object or array";
     public static final String STACKOVERFLOW = "Stackoverflow exception";
     public static final String EMPTY_STACK = "Empty stack exception";

@@ -5,7 +5,7 @@ package frontend.util;
  * Token 类
  */
 public class Token {
-	private TokenType type;
+	private String type;
 	private String value;
 	private int line;
 	private int position;
@@ -13,14 +13,14 @@ public class Token {
 	public Token() {
 	}
 
-	public Token(TokenType type, String value, int line, int position) {
+	public Token(String type, String value, int line, int position) {
 		this.type = type;
 		this.value = value;
 		this.line = line;
 		this.position = position;
 	}
 
-	public TokenType getType() {
+	public String getType() {
 		return type;
 	}
 
@@ -36,7 +36,7 @@ public class Token {
 		return position;
 	}
 
-	public void setType(TokenType type) {
+	public void setType(String type) {
 		this.type = type;
 	}
 
@@ -51,14 +51,10 @@ public class Token {
 	public void setPosition(int position) {
 		this.position = position;
 	}
-
-	public boolean is(TokenType tokentype) {
-		return type.equals(tokentype);
-	}
-
+	
 	@Override
 	public String toString() {
-		if(type.equals(TokenType.STRING)){
+		if (type.equals(TokenType.STRING)) {
 			return "\"" + value + "\"";
 		}
 		return value;
