@@ -1,7 +1,7 @@
 # SimpleJSONCompiler
 一个简单的 JSON 解析器,能够完整地解析 JSON 文本,并且能从中提取特定的信息
 
-使用方法: java -jar jsonCompiler.jar [options] sourceFile"
+使用方法: java -jar jsonCompiler.jar [options] [sourceFile]
 
 options:
 
